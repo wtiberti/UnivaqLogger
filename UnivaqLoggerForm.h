@@ -61,6 +61,7 @@
 		
 	public slots:
 		void on_loginButton_clicked();
+		void on_logoutButton_clicked();
 	};
 
 #endif

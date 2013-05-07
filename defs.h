@@ -26,7 +26,7 @@
 	
 	
 	// Browser utilizzato
-	#define MY_BROWSER_CMD "which firefox"
+	#define MYBROWSER "firefox"
 	
 	// definizione costanti
 	#define PAGE_BUFFER_LENGTH 4096

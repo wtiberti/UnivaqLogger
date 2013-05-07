@@ -300,7 +300,6 @@ void UnivaqLoggerForm::on_loginButton_clicked()
 		puts( "\x1B[0m" );
 		#endif
 		*/
-		
 		#ifdef NET_DEBUG_MODE
 		printf( "\x1B[0;94m%s\x1B[0;92m\n", elaboredPostData );
 		#endif
@@ -317,10 +316,11 @@ void UnivaqLoggerForm::on_loginButton_clicked()
 		puts( "\x1B[0m" );
 		#endif
 		
-		// TODO: messaggio
+		QMessageBox *msgbox = new QMessageBox( QMessageBox::Information, "UnivaqLogger", "Connessione Avvenuta!\nLanciare il browser?", QMessageBox::Ok|QMessageBox::No );
+		int res = msgbox->exec();
 		
-		// Avvio Browser
-		LaunchBrowser();
+		if( res == QMessageBox::Ok )
+			LaunchBrowser(); // Avvio Browser
 	}
 	else
 		fprintf( stderr, "[ERRORE] Connessione non riuscita.\n" );
@@ -328,27 +328,19 @@ void UnivaqLoggerForm::on_loginButton_clicked()
 
 void UnivaqLoggerForm::LaunchBrowser( void )
 {
-	FILE *fp;
-	
-	if( (fp = popen( MY_BROWSER_CMD, "r" )) == NULL )
+	char *arglist[] = { MYBROWSER, NULL };
+	pid_t br_child = fork();
+	if( br_child == 0 )
 	{
-		fprintf( stderr, "[ERROR] Unable to find Firefox\n" );
-		
+		// Processo figlio
+		puts( "[INFO] Avviamento del Browser in corso..." );
+		int result = execvp( MYBROWSER, arglist );
+		fprintf( stderr, "[ERROR] Errore nel avviamento del browser: %d\n", result );
+		exit(0);
 	}
-	else
-	{
-		fgets( browserPath, sizeof(browserPath)-1, fp );
-		printf( "[INFO] Browser trovato: %s\n", browserPath );
-		pclose( fp );
-		
-		pid_t br_child = fork();
-		if( br_child == 0 )
-		{
-			// Processo figlio
-			puts( "[INFO] Avviamento del Browser in corso..." );
-			int result = execl( browserPath, "" );
-			fprintf( stderr, "[ERROR] Errore nel avviamento del browser\n" );
-			exit(0);
-		}
-	}
+}
+
+void UnivaqLoggerForm::on_logoutButton_clicked()
+{
+	//TODO
 }
