@@ -16,7 +16,7 @@
  *
  * Copyright (C) 2013 Walter Tiberti
  */
-
+#include <unistd.h>
 #include <cstdio>
 #include <cstring>
 
@@ -28,6 +28,8 @@
 
 UnivaqLoggerForm::UnivaqLoggerForm( QWidget *parent ) : QWidget( parent )
 {
+	
+	
 	ui.setupUi( this );
 	
 	bio = NULL;
@@ -315,7 +317,38 @@ void UnivaqLoggerForm::on_loginButton_clicked()
 		puts( "\x1B[0m" );
 		#endif
 		
+		// TODO: messaggio
+		
+		// Avvio Browser
+		LaunchBrowser();
 	}
 	else
 		fprintf( stderr, "[ERRORE] Connessione non riuscita.\n" );
+}
+
+void UnivaqLoggerForm::LaunchBrowser( void )
+{
+	FILE *fp;
+	
+	if( (fp = popen( MY_BROWSER_CMD, "r" )) == NULL )
+	{
+		fprintf( stderr, "[ERROR] Unable to find Firefox\n" );
+		
+	}
+	else
+	{
+		fgets( browserPath, sizeof(browserPath)-1, fp );
+		printf( "[INFO] Browser trovato: %s\n", browserPath );
+		pclose( fp );
+		
+		pid_t br_child = fork();
+		if( br_child == 0 )
+		{
+			// Processo figlio
+			puts( "[INFO] Avviamento del Browser in corso..." );
+			int result = execl( browserPath, "" );
+			fprintf( stderr, "[ERROR] Errore nel avviamento del browser\n" );
+			exit(0);
+		}
+	}
 }

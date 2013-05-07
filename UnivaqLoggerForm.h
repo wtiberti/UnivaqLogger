@@ -43,6 +43,8 @@
 		int SendData( char *dati );
 		int ReadData( char *buffer, const unsigned long buffer_size );
 		
+		void LaunchBrowser( void );
+		
 		// Strutture per la connessione via OpenSSL
 		BIO *bio; // Struttura BIO (OpenSSL)
 		SSL *ssl; // Struttura SSL (OpenSSL)
@@ -54,6 +56,8 @@
 		// Buffer per nome utente e password
 		char nomeUtente[ MAX_USER_LENGTH ] = { 0 };
 		char passwordUtente[ MAX_PASSWORD_LENGTH ] = { 0 };
+		
+		char browserPath[256] = {0};
 		
 	public slots:
 		void on_loginButton_clicked();

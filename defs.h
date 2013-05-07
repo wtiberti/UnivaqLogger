@@ -21,10 +21,13 @@
 	#define UNIVAQLOGGER_DEF
 	
 	// Debug modes
-	#define LOCAL_MODE
+	//#define LOCAL_MODE
 	#define NET_DEBUG_MODE
-
-
+	
+	
+	// Browser utilizzato
+	#define MY_BROWSER_CMD "which firefox"
+	
 	// definizione costanti
 	#define PAGE_BUFFER_LENGTH 4096
 	#define MAX_POST_DATA 1024

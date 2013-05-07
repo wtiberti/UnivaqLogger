@@ -1,22 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-	This file is part of UnivaqLogger software.
-
-	UnivaqLogger is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	UnivaqLogger is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License
-	along with UnivaqLogger.  If not, see <http://www.gnu.org/licenses/>.
-
-	Copyright (C) 2013 Walter Tiberti
--->
 <ui version="4.0">
  <author>Walter Tiberti</author>
  <class>Form</class>
@@ -51,7 +33,7 @@
       <string/>
      </property>
      <property name="pixmap">
-	  <pixmap>:/UnivaqLogger.png</pixmap>
+      <pixmap resource="risorse.qrc">:/UnivaqLogger.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -82,7 +64,7 @@
         <number>64</number>
        </property>
        <property name="echoMode">
-        <enum>QLineEdit::PasswordEchoOnEdit</enum>
+        <enum>QLineEdit::Password</enum>
        </property>
        <property name="placeholderText">
         <string>&lt;Password&gt;</string>
